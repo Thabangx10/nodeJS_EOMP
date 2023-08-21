@@ -11,44 +11,70 @@ const { users, products } = require('../model');
 // === Users Router ===
 
 routes.get('/users', (req, res) => {
-  users.fetchUsers(req, res);
+    users.fetchUsers(req, res);
 });
 
 routes.get('/user/:id', (req, res) => {
-  users.fetchUser(req, res);
+    users.fetchUser(req, res);
 });
+
+// 
+
+// Register
 
 routes.post('/register', bodyParser.json(), (req, res) => {
     users.register(req, res)
 })
 
-routes.post('/login', bodyParser.json(), (req, res)=>{
+// Login
+
+routes.post('/login', bodyParser.json(), (req, res) => {
     users.login(req, res)
 })
+// 
 
-routes.put('/user/:id', bodyParser.json(), (req, res) => {
-  users.updateUser(req, res);
-});
+// 
+
+// routes.put('/user/:id', bodyParser.json(), (req, res) => {
+//     users.updateUser(req, res);
+// });
 
 routes.patch('/user/:id', bodyParser.json(), (req, res) => {
-  users.updateUser(req, res);
+    users.updateUser(req, res);
 });
 
 routes.delete('/user/:id', (req, res) => {
-  users.deleteUser(req, res);
+    users.deleteUser(req, res);
 });
 
 // === Products Router ===
 
-routes.get('/products', (req, res) => {
-  products.fetchProducts(req, res);
+// Create a new product
+routes.post('/products', bodyParser.json(), (req, res) => {
+    products.createProduct(req, res);
 });
 
-routes.post('/addproduct', bodyParser.json(), (req, res) => {
-  products.addProduct(req, res);
+// Retrieve all products
+routes.get('/products', (req, res) => {
+    products.fetchProducts(req, res);
+});
+
+// Retrieve a single product by ID
+routes.get('/product/:id', (req, res) => {
+    products.fetchProduct(req, res);
+});
+
+// Update a product
+routes.put('/product/:id', bodyParser.json(), (req, res) => {
+    products.updateProduct(req, res);
+});
+
+// Delete a product by ID
+routes.delete('/products/:id', (req, res) => {
+    products.deleteProduct(req, res);
 });
 
 module.exports = {
-  express,
-  routes,
+    express,
+    routes,
 };

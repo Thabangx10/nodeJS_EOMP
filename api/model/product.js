@@ -1,9 +1,11 @@
+const db = require("../config")
+
 class Products {
   // Create a new product
   createProduct(req, res) {
     const product = {
       prodName: req.body.prodName,
-      quantity: req.body.quantity,
+      proddesc: req.body.proddesc,
       amount: req.body.amount,
       Category: req.body.Category,
       prodUrl: req.body.prodUrl,
@@ -22,7 +24,7 @@ class Products {
 
   // Retrieve all products
   fetchProducts(req, res) {
-    const query = 'SELECT prodID, prodName, quantity, amount, Category, prodUrl FROM Products';
+    const query = 'SELECT prodID, prodName, proddesc, amount, Category, prodUrl FROM Products';
     db.query(query, (err, results) => {
       if (err) throw err;
       res.json({
@@ -34,7 +36,7 @@ class Products {
 
   // Retrieve a single product by ID
   fetchProduct(req, res) {
-    const query = `SELECT prodID, prodName, quantity, amount, Category, prodUrl FROM Products WHERE prodID = ${req.params.id}`;
+    const query = `SELECT prodID, prodName, proddesc, amount, Category, prodUrl FROM Products WHERE prodID = ${req.params.id}`;
     db.query(query, (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
@@ -55,7 +57,7 @@ class Products {
   updateProduct(req, res) {
     const product = {
       prodName: req.body.prodName,
-      quantity: req.body.quantity,
+      proddesc: req.body.proddesc,
       amount: req.body.amount,
       Category: req.body.Category,
       prodUrl: req.body.prodUrl,
