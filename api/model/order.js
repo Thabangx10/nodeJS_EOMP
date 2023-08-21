@@ -1,5 +1,3 @@
-const db = require('./db'); 
-
 class Orders {
   // Retrieve all orders
   fetchOrders(req, res) {

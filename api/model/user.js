@@ -1,5 +1,3 @@
-const db = require('../config'); 
-
 class Users {
   // Retrieve all users
   fetchUsers(req, res) {

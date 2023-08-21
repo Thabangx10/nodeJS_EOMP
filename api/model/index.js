@@ -1,6 +1,6 @@
-const Users = require('./Users')
-const Orders = require('./Orders')
-const Products = require('./Products')
+const Users = require('./user')
+const Orders = require('./order')
+const Products = require('./product')
 // Export all objects
 module.exports = {
     users: new Users(),
