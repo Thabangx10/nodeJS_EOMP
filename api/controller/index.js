@@ -18,6 +18,14 @@ routes.get('/user/:id', (req, res) => {
   users.fetchUser(req, res);
 });
 
+routes.post('/register', bodyParser.json(), (req, res) => {
+    users.register(req, res)
+})
+
+routes.post('/login', bodyParser.json(), (req, res)=>{
+    users.login(req, res)
+})
+
 routes.put('/user/:id', bodyParser.json(), (req, res) => {
   users.updateUser(req, res);
 });
