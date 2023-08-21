@@ -18,8 +18,8 @@ function createToken(user) {
 function verifyAToken(req, res, next) {
   try {
     // Retrieve the token from req.headers
-    const token = req.headers["authenticateUser"];
-    
+    const token = req.headers["authorization"];
+
     // Check if the token exists
     if (!token) {
       return res.status(401).json({
@@ -41,8 +41,8 @@ function verifyAToken(req, res, next) {
       next();
     });
   } catch (e) {
-    res.status(500).json({
-      status: 500,
+    res.json({
+      status: res.statusCode,
       msg: e.message,
     });
   }
@@ -53,7 +53,7 @@ async function authenticateUser(req, res) {
     const { emailAdd, userPass } = req.body;
 
     // Fetch the user's hashed password from your database based on their email
-    const hashedPasswordFromDatabase = "2vnSjpMqmrCKLaFFu6HD";
+    const hashedPasswordFromDatabase = "";
 
     const passwordMatch = await bcrypt.compare(userPass, hashedPasswordFromDatabase);
 

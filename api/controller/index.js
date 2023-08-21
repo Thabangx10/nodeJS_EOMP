@@ -6,7 +6,7 @@ const routes = express.Router();
 const { users, products } = require('../model');
 
 // Import your authentication middleware
-const { verifyAToken } = require('../middleware/AuthenticateUser');
+// const { verifyAToken } = require('../middleware/AuthenticateUser');
 
 // === Users Router ===
 
@@ -40,7 +40,7 @@ routes.delete('/user/:id', (req, res) => {
 
 // === Products Router ===
 
-routes.get('/products', verifyAToken, (req, res) => {
+routes.get('/products', (req, res) => {
   products.fetchProducts(req, res);
 });
 
