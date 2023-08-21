@@ -1,4 +1,5 @@
 const { sign, verify } = require("jsonwebtoken");
+const bcrypt = require("bcrypt")
 require("dotenv").config();
 
 function createToken(user) {
@@ -47,7 +48,42 @@ function verifyAToken(req, res, next) {
   }
 }
 
+async function authenticateUser(req, res) {
+  try {
+    const { emailAdd, userPass } = req.body;
+
+    // Fetch the user's hashed password from your database based on their email
+    const hashedPasswordFromDatabase = "2vnSjpMqmrCKLaFFu6HD";
+
+    const passwordMatch = await bcrypt.compare(userPass, hashedPasswordFromDatabase);
+
+    if (!passwordMatch) {
+      return res.status(401).json({
+        status: 401,
+        msg: "Unauthorized: Invalid credentials",
+      });
+    }
+
+    // User is authenticated, generate a JWT token
+    const user = { emailAdd };
+    const token = createToken(user);
+
+    // Send the token to the client
+    res.json({
+      status: 200,
+      msg: "Authentication successful",
+      token: token,
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      msg: err.message,
+    });
+  }
+}
+
 module.exports = {
   createToken,
   verifyAToken,
+  authenticateUser,
 };

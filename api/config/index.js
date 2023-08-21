@@ -1,15 +1,14 @@
-require("dotenv").config()
+require("dotenv").config();
 
-const {createPool} = require("mysql")
+const { createPool } = require("mysql");
 
-const connection = createPool ({
+const connection = createPool({
     host: process.env.dbHost,
     database: process.env.dbName,
-    user:process.env.dbUsr,
+    user: process.env.dbUsr,
     password: process.env.dbPwd,
     multipleStatements: true,
-    connectionlimit: 30
-})
+    connectionLimit: 30,
+});
 
-
-module.exports = connection
+module.exports = {connection};
