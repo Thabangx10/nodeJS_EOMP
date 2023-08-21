@@ -1,5 +1,3 @@
-const db = require('./db');
-
 class Products {
   // Create a new product
   createProduct(req, res) {
