@@ -1,12 +1,15 @@
-// error handling
+// error handling middleware
 function errorHandling(err, req, res, next) {
-    if(err) {
-        let status = err.status || 500
-        res.json({
+    if (err) {
+        let status = err.status || 500;
+        res.status(status).json({
             status,
-            msg: "an error occurred: please try again later"
-        })
+            msg: "An error occurred: please try again later",
+        });
+    } else {
+        // If there's no error, continue to the next middleware
+        next();
     }
-    next()
 }
-module.exports = errorHandling
+
+module.exports = errorHandling;

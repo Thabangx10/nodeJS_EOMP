@@ -1,5 +1,6 @@
 const { sign, verify } = require("jsonwebtoken");
 require("dotenv").config();
+
 function createToken(user) {
   return sign(
     {
@@ -12,24 +13,41 @@ function createToken(user) {
     }
   );
 }
-function verifyAToken(req, res, next){
-  /*
-    To prevent undefined error, place ?. before your property.
-    */
-  try{
-     // Retrieve token from req.headers
-     console.log("Get token from req.headers['authorization']");
-     const token = req.headers["authorization"]
-     console.log(token);
-     next()
-  }catch(e){
-    res.json({
-        status: res.statusCode,
-        msg: e.message
-    })
+
+function verifyAToken(req, res, next) {
+  try {
+    // Retrieve the token from req.headers
+    const token = req.headers["authorization"];
+    
+    // Check if the token exists
+    if (!token) {
+      return res.status(401).json({
+        status: 401,
+        msg: "Unauthorized: Token missing",
+      });
+    }
+
+    // Verify the token
+    verify(token, process.env.SECRET_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({
+          status: 401,
+          msg: "Unauthorized: Invalid token",
+        });
+      }
+      // If the token is valid, attach the user data to the request for further use
+      req.user = decoded;
+      next();
+    });
+  } catch (e) {
+    res.status(500).json({
+      status: 500,
+      msg: e.message,
+    });
+  }
 }
-}
+
 module.exports = {
   createToken,
-  verifyAToken
+  verifyAToken,
 };

@@ -1,11 +1,35 @@
-// Database Config
-const db = require("./config");
-const {hash, compare, hashSync} = require('bcrypt')
-const {createToken} = require('../api/middleware/AuthenticateUser')
-const express = require('express');
-const app = express();
-const port = +process.env.PORT || 3000;
-
+const {express, routes} = require('./controller')
+const path = require('path')
+const app = express()
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const errorHandling = require('./middleware/ErrorHandling')
+const port = +process.env.PORT || 3000
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Credentials", "true")
+    res.header("Access-Control-Allow-Methods", "*")
+    res.header("Access-Control-Request-Methods", "*")
+    res.header("Access-Control-Allow-Headers", "*")
+    res.header("Access-Control-Expose-Headers", "Authorization")
+})
+// static
+app.use(
+    express.static('./static'),
+    express.urlencoded({
+        extended: false
+    }),
+    cookieParser(),
+    cors(),
+    routes
+)
+// Handling all errors using error middleware.
+app.use(errorHandling)
+routes.get('^/$|/challenger',
+    (req, res) => {
+        res.sendFile(path.resolve(__dirname, './static/html/index.html'))
+})
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+    console.log(`The server is running on port
+    ${port}`);
+})
