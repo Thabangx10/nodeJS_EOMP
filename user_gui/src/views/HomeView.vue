@@ -53,14 +53,19 @@
         <div class="card-body">
           <p class="card-text"> Black Men Winter Leather Motorcycle</p>
         </div>
-      </div>
+      </div> 
+    </div>
+    <div class="footer">
+      <footer-comp/>
     </div>
   </div>
+
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
 import CarouselComp from '@/components/CarouselComp.vue'
+import FooterComp from '@/components/FooterComp.vue'
 
 // @ is an alias to /src
 
@@ -69,7 +74,8 @@ export default {
   name: 'HomeView',
   components: {
     NavBar,
-    CarouselComp
+    CarouselComp,
+    FooterComp
     
    
   }
@@ -113,6 +119,10 @@ export default {
   .card img{
     height: 15rem;
     object-fit: cover;
+  }
+  .footer{
+    position: absolute;
+    margin-top: 25rem;
   }
 
 </style>
