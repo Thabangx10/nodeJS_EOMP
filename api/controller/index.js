@@ -70,7 +70,7 @@ routes.put('/product/:id', bodyParser.json(), (req, res) => {
 });
 
 // Delete a product by ID
-routes.delete('/products/:id', (req, res) => {
+routes.delete('/product/:id', (req, res) => {
     products.deleteProduct(req, res);
 });
 

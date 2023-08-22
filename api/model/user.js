@@ -1,4 +1,6 @@
 const db = require("../config")
+const bcrypt = require("bcrypt");
+const { createToken } = require("../middleware/AuthenticateUser");
 
 class Users {
     // Retrieve all users
@@ -42,101 +44,153 @@ class Users {
     // Register
 
     async register(req, res) {
-        const data = req.body;
-        //encrypt password
-        data.userPass = await hash(data.userPass, 15);
-        //PAYLOAD means DATA THAT COMES FROM THE USER
-        const user = {
-            emailAdd: data.emailAdd,
-            userPass: data.userPass,
-        };
-        //query
-        const query = `
-      INSERT INTO Users
-      SET ?;
-      `;
-        db.query(query, [data], (err) => {
-            if (err) throw err;
-            //create a token
-            let token = createToken(user);
-            res.json({
-                status: res.statusCode,
-                msg: "You are now registered.",
+        try {
+          const data = req.body;
+          
+          // Ensure data.userPass is a valid string
+          if (typeof data.userPass !== 'string' || data.userPass.length === 0) {
+            return res.status(400).json({
+              status: 400,
+              msg: 'Invalid password.',
             });
-        });
-    }
-
-    login(req, res) {
-        const { emailAdd, userPass } = req.body;
-        // Use parameterized query
-        const query = `
-        SELECT userID, firstName, lastNmae,userAge, gender,userRole,
-        emailAdd, profileUrl
-        FROM Users
-        WHERE emailAdd = '${emailAdd}';
-        `;
-        db.query(query, async (err, result) => {
-            if (err) throw err;
-            if (!result?.length) {
-                res.json({
-                    status: res.statusCode,
-                    msg: "You provided a wrong email.",
-                });
+          }
+    
+          // Generate a salt
+          const saltRounds = 15;
+          const salt = await bcrypt.genSalt(saltRounds);
+    
+          // Encrypt the password using the generated salt
+          const hashedPassword = await bcrypt.hash(data.userPass, salt);
+    
+          // Create a user object with email and hashed password
+          const user = {
+            emailAdd: data.emailAdd,
+            userPass: hashedPassword,
+          };
+    
+          // Insert the user data into the database
+          const query = `
+            INSERT INTO Users
+            SET ?;
+          `;
+          db.query(query, user, (err) => {
+            if (err) {
+              console.error(err);
+              res.status(500).json({
+                status: 500,
+                msg: "Registration failed.",
+              });
             } else {
-                await compare(userPass, result[0].userPass, (cErr, cResult) => {
-                    if (cErr) throw cErr;
-                    // Create a token
-                    const token = createToken({
-                        emailAdd,
-                        userPass,
-                    });
-                    if (cResult) {
-                        res.json({
-                            msg: "Logged in",
-                            token,
-                            result: result[0],
-                        });
-                    } else {
-                        res.json({
-                            status: res.statusCode,
-                            msg: "Invalid password or you have not registered",
-                        });
-                    }
-                });
+              // Create a token for the registered user
+              const token = createToken(user);
+    
+              res.status(201).json({
+                status: 201,
+                msg: "You are now registered.",
+                token: token,
+              });
             }
-        });
+          });
+        } catch (err) {
+          console.error(err);
+          res.status(500).json({
+            status: 500,
+            msg: "Registration failed.",
+          });
+        }
+      }
+    
+
+    async login(req, res) {
+        try {
+            const { emailAdd, userPass } = req.body;
+
+            // Query the database to get the user's hashed password
+            const query = `
+            SELECT userID, emailAdd, userPass
+            FROM Users
+            WHERE emailAdd = ?;
+          `;
+            db.query(query, [emailAdd], async (err, result) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({
+                        status: 500,
+                        msg: "Login failed.",
+                    });
+                }
+
+                if (!result?.length) {
+                    return res.status(401).json({
+                        status: 401,
+                        msg: "Invalid email or password.",
+                    });
+                }
+
+                const hashedPassword = result[0].userPass;
+
+                // Compare the provided password with the hashed password from the database
+                const passwordMatch = await bcrypt.compare(userPass, hashedPassword);
+
+                if (!passwordMatch) {
+                    return res.status(401).json({
+                        status: 401,
+                        msg: "Invalid email or password.",
+                    });
+                }
+
+                // Create a token for the authenticated user
+                const user = {
+                    emailAdd,
+                };
+                const token = createToken(user);
+
+                res.status(200).json({
+                    status: 200,
+                    msg: "Logged in",
+                    token: token,
+                    result: result[0],
+                });
+            });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({
+                status: 500,
+                msg: "Login failed.",
+            });
+        }
     }
 
-    // Update a user
-    updateUser(req, res) {
-        const query = `
+// Update a user
+updateUser(req, res) {
+    const query = `
       UPDATE Users
       SET ?
       WHERE userID = ?;
     `;
-        db.query(query, [req.body, req.params.id], (err) => {
-            if (err) throw err;
-            res.json({
-                status: res.statusCode,
-                msg: 'The user record was updated.',
-            });
+    db.query(query, [req.body, req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+            status: res.statusCode,
+            msg: 'The user record was updated.',
         });
-    }
+    });
+}
 
-    // Delete a user by ID
-    deleteUser(req, res) {
-        const query = `
+// Delete a user by ID
+deleteUser(req, res) {
+    const query = `
       DELETE FROM Users
       WHERE userID = ?;
     `;
-        db.query(query, [req.params.id], (err) => {
-            if (err) throw err;
-            res.json({
-                status: res.statusCode,
-                msg: 'A user record was deleted.',
-            });
+    db.query(query, [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({
+            status: res.statusCode,
+            msg: 'A user record was deleted.',
         });
-    }
+    });
+}
 }
 
 module.exports = Users;
