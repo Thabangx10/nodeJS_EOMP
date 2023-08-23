@@ -6,7 +6,7 @@ class Users {
     // Retrieve all users
     fetchUsers(req, res) {
         const query = `
-      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile
+      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile, Userpic 
       FROM Users
     `;
         db.query(query, (err, results) => {
@@ -21,7 +21,7 @@ class Users {
     // Retrieve a single user by ID
     fetchUser(req, res) {
         const query = `
-      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile
+      SELECT userID, firstName, lastName, userAge, Gender, emailAdd, userProfile, Userpic
       FROM Users
       WHERE userID = ?;
     `;
