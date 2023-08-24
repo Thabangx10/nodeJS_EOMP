@@ -40,7 +40,7 @@
 
     },
       deleteProduct(prodID) {
-
+        
     },
     },
   };
