@@ -6,16 +6,16 @@
       </div>
       <div class="row justify-content-center gap-3">
         <!-- Display a list of products -->
-        <div v-for="product in products" class="card" style="width: 18rem;" :key="product.productId">
-          <img :src="product.image" class="card-img-top" :alt="product.name">
+        <div v-for="product in products" class="card" style="width: 18rem;" :key="product.prodID">
+          <img :src="product.prodUrl" class="card-img-top" :alt="product.prodName">
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <h5 class="card-title">{{ product.prodName }}</h5>
             <p class="card-text">
-              <span>Price: ${{ product.price }}</span>
+              <span>Price: ${{ product.amount }}</span>
             </p>
             <!-- Add buttons for editing and deleting products -->
             <button @click="editProduct(product)" class="btn btn-primary">EDIT</button>
-            <button @click="deleteProduct(product.productId)" class="btn btn-danger">DELETE</button>
+            <button @click="deleteProduct(product.prodID)" class="btn btn-danger">DELETE</button>
           </div>
         </div>
       </div>
@@ -36,10 +36,10 @@
       this.$store.dispatch('fetchProducts');
     },
     methods: {
-      editProduct(product) {
+      editProduct(prodID) {
 
     },
-      deleteProduct(productId) {
+      deleteProduct(prodID) {
 
     },
     },
