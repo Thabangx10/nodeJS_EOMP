@@ -1,6 +1,7 @@
 <template>
     <div class="container">
       <nav-bar/>
+ 
       <div class="row">
         <h2 class="display-2">Users</h2>
       </div>
@@ -12,7 +13,7 @@
             <p class="card-text">
               <span>Email address: {{ user.emailAdd }}</span>
             </p>
-            <a href="#" class="btn btn-primary">DELETE</a>
+            <button @click="onDeleteUser(user.userID)" > Delete </button>
           </div>
         </div>
       </div>
@@ -21,19 +22,24 @@
   
   <script>
   import NavBar from '@/components/NavBar.vue';
-  
+  import { mapActions } from 'vuex';
+
   export default {
     components: { NavBar },
+    methods:{
+        ...mapActions(['deleteUser']),
+        async onDeleteUser(userID) {
+            await this.deleteUser(userID);
+        },
+
+    },
     computed: {
       users() {
         return this.$store.state.users;
-      },
+      }
     },
     mounted() {
-      this.$store.dispatch('fetchUsers', {
-        payload: {
-        },
-      });
+      this.$store.dispatch('fetchUsers');
     },
   };
   </script>

@@ -19,7 +19,7 @@
     </div>
 
     <div class="video">
-      <iframe width="900" height="500" src="https://www.youtube.com/embed/EPllAgqnmqc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe width="900" height="500" src="https://www.youtube.com/embed/EPllAgqnmqc?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     <br>
     <div class="position-absolute start-50 translate-middle mt-500">

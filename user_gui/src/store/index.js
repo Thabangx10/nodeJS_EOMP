@@ -102,7 +102,17 @@ export default createStore({
         commit('setSpinner', false);
       }
     },
-    
+    async deleteUser(context, id){
+      try {
+        const {msg} = (await axios.delete(`${Url}user/${id}`)).data
+        if(msg) {
+          const updatedUsers = state.users.filter(user => user.userID !== id);
+          commit('setUsers', updatedUsers);
+        }
+      } catch (error) {
+          console.error('Error deleting user:', error);
+      }
+    }
   },
   modules: {
   },
