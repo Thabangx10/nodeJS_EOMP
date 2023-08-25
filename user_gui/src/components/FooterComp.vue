@@ -1,37 +1,33 @@
 <template>
-    <div class="body">
-        <br>
-        <p>All Copyrights Reserved &copy;2023</p>
-      
-
-        <div class="icons">
-            
-        </div>
+  <div class="footer">
+    <div class="container">
+      <p>All Copyrights Reserved &copy;2023</p>
+      <div class="icons">
+        <!-- Add your social media or other icons here -->
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {};
 </script>
 
 <style scoped>
-    .body{
-        width:100%;
-        background: #242424;
-        height: 5rem;
-        position: absolute;
-        bottom: 0;
-        padding: 10px;
-    }
+.footer {
+  background: #242424;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
 
-    p{
-        color: #fff;
-        font-size: small;
-        margin: 0.5rem;
-    }
-    .icons{
-        float: right;
-    }
+.icons {
+  float: right;
+}
+
+/* If you want to style the icons, you can add CSS rules here */
 </style>
