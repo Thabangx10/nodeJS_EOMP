@@ -92,7 +92,7 @@ export default createStore({
     async fetchProduct({ commit }) {
       commit('setSpinner', true);
       try {
-        const response = await axios.get(`${Url}product`);
+        const response = await axios.get(`${Url}product/${id}`);
         const product = response.data.product;
         commit('setProduct', product);
       } catch (error) {

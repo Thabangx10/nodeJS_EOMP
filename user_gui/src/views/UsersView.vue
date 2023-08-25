@@ -1,6 +1,8 @@
 <template>
+  <div>
+  <nav-bar/>
     <div class="container">
-      <nav-bar/>
+      
 
       <div class="row">
         <h2 class="display-2">Users</h2>
@@ -19,15 +21,19 @@
           </div>
         </div>
       </div>
+      
     </div>
+    <footer-comp/>
+  </div>
   </template>
   
   <script>
   import NavBar from '@/components/NavBar.vue';
   import { mapActions } from 'vuex';
+import FooterComp from '../components/FooterComp.vue';
 
   export default {
-    components: { NavBar },
+    components: { NavBar,FooterComp },
     methods:{
         ...mapActions(['deleteUser']),
         async onDeleteUser(userID) {
