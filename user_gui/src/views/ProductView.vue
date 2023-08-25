@@ -5,17 +5,15 @@
         <h2 class="display-2">Products</h2>
       </div>
       <div class="row justify-content-center gap-3">
-        <!-- Display a list of products -->
+
         <div v-for="product in products" class="card" style="width: 18rem;" :key="product.prodID">
-          <img :src="product.prodUrl" class="card-img-top" :alt="product.prodName">
+          <img :src="product.prodUrl" class="card-img-top" :alt="product.prodName" style="object-fit:contain">
           <div class="card-body">
-            <h5 class="card-title">{{ product.prodName }}</h5>
+            <h5 class="card-title" style="color:gray">{{ product.prodName }}</h5>
             <p class="card-text">
-              <span>Price: ${{ product.amount }}</span>
+              <span style="color:red">Price: ${{ product.amount }}</span>
             </p>
-            <!-- Add buttons for editing and deleting products -->
-            <button @click="editProduct(product)" class="btn btn-primary">EDIT</button>
-            <button @click="deleteProduct(product.prodID)" class="btn btn-danger">DELETE</button>
+
           </div>
         </div>
       </div>

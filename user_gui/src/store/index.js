@@ -20,6 +20,10 @@ export default createStore({
       state.users = value;
     },
 
+    addProduct(state, data) {
+      state.Products = data
+    },
+
     // setUser state
     setUser(state, value) {
       state.User = value
@@ -45,12 +49,22 @@ export default createStore({
   },
   actions: {
 
+    async createProduct(context, newProd) {
+      try {
+        const { data } = await axios.post(`${Url}products`, newProd);
+        context.commit("addProduct", data.result);
+        location.reload()
+      } catch (e) {
+        context.commit("setMsg", "An error has occurred");
+      }
+    },
+
     // async fetchUser
 
     async fetchUser({ commit }) {
       commit('setSpinner', true);
       try {
-        const response = await axios.get(`${Url}user`);
+        const response = await axios.get(`${Url}user/${id}`);
         const user = response.data.user;
         commit('setUser', user);
       } catch (error) {
@@ -102,6 +116,7 @@ export default createStore({
         commit('setSpinner', false);
       }
     },
+    //delete user from database
     async deleteUser(context, id){
       try {
         const {msg} = (await axios.delete(`${Url}user/${id}`)).data
@@ -112,7 +127,21 @@ export default createStore({
       } catch (error) {
           console.error('Error deleting user:', error);
       }
-    }
+    },
+    //delete product from database
+    async deleteProduct(context, id){
+      try {
+        const {msg} = (await axios.delete(`${Url}product/${id}`)).data
+        if(msg) {
+          const updatedProducts = state.Products.filter(product => Product.prodID !== id);
+          commit('setProducts', updatedProducts);
+          
+        }
+      } catch (error) {
+          console.error('Error deleting user:', error);
+      }
+    },
+
   },
   modules: {
   },

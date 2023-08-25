@@ -34,24 +34,29 @@
         <img src="https://i.postimg.cc/3NxMBb38/IMG-8158-1-600x600.jpg" class="card-img-top" alt="...">
         <div class="card-body">
           <p class="card-text">Rolex Datejust Midsize</p>
+          <p style="color:red" class="card-text">$5000,00</p>
         </div>
       </div>
       <div class="card float-end" style="width: 18rem;">
         <img src="https://i.postimg.cc/vTwW5pyj/963954515-01.jpg" class="card-img-top" alt="...">
         <div class="card-body">
           <p class="card-text">TOP HAT Original Georgian</p>
+          <p style="color:red" class="card-text">$825,00</p>
         </div>
       </div>
       <div class="card float-end" style="width: 18rem;">
         <img src="https://i.postimg.cc/63s1j6N5/OEM-Men-s-Business-7cm-Hand-Tie-Formal-Suit-Professional-Suit-Accessories.jpg" class="card-img-top" alt="...">
         <div class="card-body">
           <p class="card-text">Sophisticated Tie-Set</p>
+          <p style="color:red" class="card-text">$650,00</p>
         </div>
       </div>
       <div class="card float-end" style="width: 18rem;">
         <img src="https://i.postimg.cc/FRh2Zsv5/best-leather-gloves.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-          <p class="card-text"> Black Men Winter Leather Motorcycle</p>
+          <p class="card-text"> Black Winter Leather gloves</p>
+          <p style="color:red" class="card-text"> $400,00</p>
+
         </div>
       </div> 
     </div>
