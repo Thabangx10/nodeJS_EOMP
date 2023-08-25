@@ -3,8 +3,7 @@
         <nav-bar/>
         <br>
         <br>
-        <modal-comp/>
-        <table-comp/>
+        <prod-modal-comp/>
         <br>
         <br>
         
@@ -14,12 +13,12 @@
 </template>
 
 <script>
-import TableComp from '@/components/TableComp.vue'
-import ModalComp from '@/components/ModalComp.vue'
+
 import NavBar from '@/components/NavBar.vue'
 import ProdTable from '@/components/ProdTable.vue'
+import ProdModalComp from '../components/ProdModalComp.vue'
     export default {
-  components: { TableComp, ModalComp, NavBar, ProdTable },
+  components: { NavBar, ProdTable,ProdModalComp },
         
     }
 </script>
