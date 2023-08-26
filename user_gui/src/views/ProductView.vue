@@ -46,8 +46,5 @@ export default {
   mounted() {
     this.$store.dispatch("fetchProducts");
   },
-  methods: {
-    editProduct(prodID) {},
-  },
 };
 </script>
