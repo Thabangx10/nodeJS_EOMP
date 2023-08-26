@@ -10,7 +10,7 @@
         <div class="cta-content">
           <img
             src="https://i.postimg.cc/d0BBymHG/26224860-6p7b3uo8vmyuap6a3b3zhb3i-Extra-Large.webp"
-            alt="Products"
+            alt="Product"
           />
           <h2>Explore Our Products</h2>
         </div>
