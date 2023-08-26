@@ -6,7 +6,7 @@
       </div>
       <div class="row justify-content-center gap-3">
         <div
-          v-for="product in products"
+          v-for="product in filteredProducts"
           class="card"
           style="width: 18rem"
           :key="product.prodID"
@@ -24,7 +24,9 @@
             <p class="card-text">
               <span style="color: red">Price: ${{ product.amount }}</span>
             </p>
-            <router-link :to="{ name: 'product1', params: { id: product.prodID } }">
+            <router-link
+              :to="{ name: 'product1', params: { id: product.prodID } }"
+            >
               <button type="button" class="btn btn-outline-success">
                 BUY NOW
               </button>
@@ -78,3 +80,34 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Add your custom styles here */
+.card {
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-text span {
+  font-weight: bold;
+}
+
+.btn-outline-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+</style>
