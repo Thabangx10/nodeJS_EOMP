@@ -42,6 +42,36 @@ export default {
     products() {
       return this.$store.state.Products;
     },
+    // Computed property to filter products by amount
+    filteredProductsByAmount() {
+      const minAmount = 10; // Set your minimum amount here
+      return this.products.filter((product) => product.amount >= minAmount);
+    },
+    // Computed property to filter products by categories
+    filteredProductsByCategory() {
+      const selectedCategory = "Electronics"; // Set your selected category here
+      return this.products.filter((product) =>
+        product.categories.includes(selectedCategory)
+      );
+    },
+    // Computed property to filter products by name
+    filteredProductsByName() {
+      const searchName = "Product Name"; // Set your search name here
+      return this.products.filter((product) =>
+        product.prodName.toLowerCase().includes(searchName.toLowerCase())
+      );
+    },
+    // Computed property to get the intersection of all filters
+    filteredProducts() {
+      const filteredByAmount = this.filteredProductsByAmount;
+      const filteredByCategory = this.filteredProductsByCategory;
+      const filteredByName = this.filteredProductsByName;
+
+      // Return the intersection of all filters
+      return filteredByAmount
+        .filter((product) => filteredByCategory.includes(product))
+        .filter((product) => filteredByName.includes(product));
+    },
   },
   mounted() {
     this.$store.dispatch("fetchProducts");
