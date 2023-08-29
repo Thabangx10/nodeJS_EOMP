@@ -51,14 +51,14 @@ export default {
     },
     // Computed property to filter products by categories
     filteredProductsByCategory() {
-      const selectedCategory = "Electronics"; // Set your selected category here
+      const selectedCategory = "watch, tuxedo, pants"; 
       return this.products.filter((product) =>
         product.categories.includes(selectedCategory)
       );
     },
     // Computed property to filter products by name
     filteredProductsByName() {
-      const searchName = "Product Name"; // Set your search name here
+      const searchName = "Rolex, Fabiani pants, Tux";
       return this.products.filter((product) =>
         product.prodName.toLowerCase().includes(searchName.toLowerCase())
       );
@@ -82,7 +82,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your custom styles here */
 .card {
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

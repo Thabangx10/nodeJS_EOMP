@@ -34,7 +34,7 @@
 export default {};
 </script>
 
-<style scoped>
+<style>
 
 .navbar-toggler {
   background-color: #fff; /* White background color for the toggler button */
