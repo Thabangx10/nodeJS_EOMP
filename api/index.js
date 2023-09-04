@@ -26,7 +26,7 @@ app.use(
 )
 // Handling all errors using error middleware.
 app.use(errorHandling)
-routes.get('^/$|/challenger',
+routes.get('^/$|/NODEJS_EOMP',
     (req, res) => {
         res.sendFile(path.resolve(__dirname, './static/html/index.html'))
 })
